@@ -13,9 +13,9 @@ const getAllusuarios = async (req, res, next) => {
 //------------------------------------- MOSTRAR UN SOLO USUARIO ----------------------------------------
 const getUsuarios = async (req, res, next) => {
   try {
-    const { iduser } = req.params;
-    const result = await pool.query("SELECT *FROM usuario WHERE iduser = $1", [
-      iduser,
+    const { id_usuario } = req.params;
+    const result = await pool.query("SELECT *FROM usuario WHERE id_usuario = $1", [
+      id_usuario,
     ]);
     if (result.rows.length === 0)
       return res.status(404).json({
@@ -31,11 +31,11 @@ const crearUsuarios = async (req, res, next) => {
   try {
     //console.log(req.body);
 
-    const { nombre_u, telefono_u, email, usuario_password } = req.body;
+    const { nombre, telefono, email, usuario_password } = req.body;
     const result = await pool.query(
-      "INSERT INTO usuario (nombre_u, telefono_u, email, usuario_password) VALUES ($1, $2, $3, $4) RETURNING *",
+      "INSERT INTO usuario (nombre, telefono, email, usuario_password) VALUES ($1, $2, $3, $4) RETURNING *",
       //INSERT INTO usuario(iduser, nombre, apellido, telefono, email, contrasenia) VALUES (2,'juan', 'Mecanico', 3215792, 'juan@mecanico.com', 'juan123')
-      [nombre_u, telefono_u, email, usuario_password]
+      [nombre, telefono, email, usuario_password]
 
     );
 
@@ -47,16 +47,16 @@ const crearUsuarios = async (req, res, next) => {
 
 //--------------------- ACTUALIZAR DATOS DE USUARIO -----------------------------------------
 const actualizarUsuarios = async (req, res, next) => {
-  const { iduser } = req.params;
+  const { id_usuario } = req.params;
 
 
 
   try {
-    const { nombre_u, telefono_u, email, usuario_password } = req.body;
+    const { nombre, telefono, email, usuario_password } = req.body;
 
     const result = await pool.query(
-      "UPDATE usuario SET nombre_u = $1, telefono_u = $2, email= $3,usuario_password = $4 WHERE iduser = $5 RETURNING *",
-      [nombre_u, telefono_u, email, usuario_password, iduser]
+      "UPDATE usuario SET nombre = $1, telefono = $2, email= $3,usuario_password = $4 WHERE id_usuario = $5 RETURNING *",
+      [nombre, telefono, email, usuario_password, id_usuario]
 
     );
     if (result.rows.length === 0)
@@ -72,10 +72,10 @@ const actualizarUsuarios = async (req, res, next) => {
 
 //---------------------- ELIMINAR USUARIO --------------------------
 const eliminarUsuarios = async (req, res) => {
-  const { iduser } = req.params;
+  const { id_usuario } = req.params;
   try{
-    const result = await pool.query("DELETE FROM usuario WHERE iduser = $1", [
-        iduser,
+    const result = await pool.query("DELETE FROM usuario WHERE id_usuario = $1", [
+        id_usuario,
       ]);
     
       if (result.rowCount === 0)

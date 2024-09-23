@@ -3,7 +3,8 @@ const morgan = require("morgan");
 const cors = require("cors");
 
 const usuariosRouter = require("./routes/usuarios.routes");
-//const proveedoresRouter = require('./routes/proveedores.routes')
+const proveedoresRouter = require('./routes/proveedores.routes')
+const categoriaRouter = require("./routes/categoria.routes");
 
 require("dotenv").config();
 
@@ -18,7 +19,8 @@ app.use(morgan("dev"));
 app.use(express.json()); //req. body
 
 app.use(usuariosRouter);
-//app.use(proveedoresRouter);
+app.use(proveedoresRouter);
+app.use(categoriaRouter);
 
 app.use((err, req, res, next) =>{
     return res.json({

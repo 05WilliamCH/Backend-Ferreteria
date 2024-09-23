@@ -11,12 +11,12 @@ const router = Router();
 
 router.get("/usuario", getAllusuarios);
 
-router.get("/usuario/:idusuario", getUsuarios);
+router.get("/usuario/:id_usuario", getUsuarios);
 
 router.post("/usuario", crearUsuarios);
 
-router.delete("/usuario/:idusuario", eliminarUsuarios);
+router.delete("/usuario/:id_usuario", eliminarUsuarios);
 
-router.put("/usuario/:idusuario", actualizarUsuarios);
+router.put("/usuario/:id_usuario", actualizarUsuarios);
 
 module.exports = router;
