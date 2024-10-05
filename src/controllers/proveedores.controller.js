@@ -33,8 +33,7 @@ const getproveedores = async (req, res, next) => {
 const crearproveedores = async (req, res, next) => {
   try {
     //console.log(req.body);
-    const { nombre_pr, nit_pr, telefono_pr, correo_pr, direccion_pr } =
-      req.body;
+    const { nombre_pr, nit_pr, telefono_pr, correo_pr, direccion_pr } = req.body;
     const result = await pool.query(
       "INSERT INTO proveedor ( nombre_pr, nit_pr, telefono_pr, correo_pr, direccion_pr) VALUES ($1, $2, $3, $4, $5 ) RETURNING *",
 
@@ -43,8 +42,7 @@ const crearproveedores = async (req, res, next) => {
 
     res.json(result.rows[0]);
   } catch (error) {
-    // next(error);
-    console.log(error);
+    next(error);
   }
 };
 // `INSERT INTO pedido(fecha_pedido, cantidad, total, cliente_idped, pastel_idped, estado_idped, modopago_idped)

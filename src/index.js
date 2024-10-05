@@ -4,7 +4,7 @@ const cors = require("cors");
 
 const usuariosRouter = require("./routes/usuarios.routes");
 const proveedoresRouter = require('./routes/proveedores.routes')
-const categoriaRouter = require("./routes/categoria.routes");
+const categoriasRouter = require("./routes/categorias.routes");
 
 require("dotenv").config();
 
@@ -20,7 +20,7 @@ app.use(express.json()); //req. body
 
 app.use(usuariosRouter);
 app.use(proveedoresRouter);
-app.use(categoriaRouter);
+app.use(categoriasRouter);
 
 app.use((err, req, res, next) =>{
     return res.json({

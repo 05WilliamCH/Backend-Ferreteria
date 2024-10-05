@@ -1,22 +1,22 @@
 const pool = require("../db");
 
 //------------------------------------ MOSTRAR TODOS LOS CATEGORIAS --------------------------------------
-const getAllcategoria = async (req, res, next) => {
+const getallcategorias = async (req, res, next) => {
   try {
-    const allcategoria = await pool.query("SELECT *FROM categoria");
-    res.json(allcategoria.rows);
+    const allcategorias = await pool.query("SELECT *FROM categoria");
+    res.json(allcategorias.rows);
   } catch (error) {
     next(error);
   }
 };
 
 //------------------------------------- MOSTRAR UN SOLO CATEGORAI ----------------------------------------
-const getcategoria = async (req, res, next) => {
+const getcategorias = async (req, res, next) => {
   try {
-    const { idcatp } = req.params;
+    const { idcategoria } = req.params;
     const result = await pool.query(
       "SELECT *FROM categoria WHERE idcategoria = $1",
-      [idcatp]
+      [idcategoria]
     );
     if (result.rows.length === 0)
       return res.status(404).json({
@@ -28,7 +28,7 @@ const getcategoria = async (req, res, next) => {
   }
 };
 //---------------CREAR UN NUEVO CATEGORIA ------------------
-const crearcategoria = async (req, res, next) => {
+const crearcategorias = async (req, res, next) => {
   try {
     //console.log(req.body);
     const { categoria } = req.body;
@@ -45,14 +45,15 @@ const crearcategoria = async (req, res, next) => {
 };
 
 //--------------------- ACTUALIZAR DATOS DE CATEGORIA -----------------------------------------
-const actualizarcategoria = async (req, res, next) => {
-  const { idcatp } = req.params;
+const actualizarcategorias = async (req, res, next) => {
+  const { idcategoria } = req.params;
   try {
-    const { categoria } = req.body;
+    const { categoria } = 
+    req.body;
 
     const result = await pool.query(
       "UPDATE categoria SET categoria = $1 WHERE idcategoria = $2 RETURNING *",
-      [categoria, idcatp]
+      [categoria, idcategoria]
     );
     if (result.rows.length === 0)
       return res.status(404).json({
@@ -65,13 +66,12 @@ const actualizarcategoria = async (req, res, next) => {
 };
 
 //---------------------- ELIMINAR CATEGORIA --------------------------
-const eliminarcategoria = async (req, res, next) => {
-  const { idcatp } = req.params;
+const eliminarcategorias = async (req, res, next) => {
+  const { idcategoria } = req.params;
   try {
-    const result = await pool.query(
-      "DELETE FROM categoria WHERE idcategoria = $1",
-      [idcatp]
-    );
+    const result = await pool.query("DELETE FROM categoria WHERE idcategoria = $1",[
+      idcategoria,
+    ]);
 
     if (result.rowCount === 0)
       return res.status(404).json({
@@ -85,9 +85,9 @@ const eliminarcategoria = async (req, res, next) => {
 };
 
 module.exports = {
-  getAllcategoria,
-  getcategoria,
-  crearcategoria,
-  actualizarcategoria,
-  eliminarcategoria,
+  getallcategorias,
+  getcategorias,
+  crearcategorias,
+  actualizarcategorias,
+  eliminarcategorias,
 };
